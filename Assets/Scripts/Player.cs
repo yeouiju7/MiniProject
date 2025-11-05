@@ -287,7 +287,6 @@ public class Player : MonoBehaviour
     {
         if (audioSource != null && jumpSoundClip != null)
         {
-            //PlayOneShot을 사용하여 다른 소리를 방해하지 않고 재생합니다.
             audioSource.PlayOneShot(jumpSoundClip);
         }
        
@@ -315,7 +314,7 @@ public class Player : MonoBehaviour
 
         //whatIsGround 마스크에 포함된 모든 레이어를 찾아서 무시
         //플레이어의 Collider를 비활성화하는 방법
-        // LayerMask에서 첫 번째 레이어를 추출하여 사용 
+        //LayerMask에서 첫 번째 레이어를 추출하여 사용 
         int groundLayerNumber = Mathf.FloorToInt(Mathf.Log(whatIsGround.value, 2));
         if (groundLayerNumber >= 0)
         {
@@ -340,8 +339,8 @@ public class Player : MonoBehaviour
         }
 
     }
-   
-    // 콜라이더 트리거 안에 들어왔을 때
+  
+    //콜라이더 트리거 안에 들어왔을 때
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Ladder"))
@@ -356,7 +355,7 @@ public class Player : MonoBehaviour
 
     }
 
-    // 콜라이더 트리거에서 나갔을 때
+    //콜라이더 트리거에서 나갔을 때
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Ladder"))
