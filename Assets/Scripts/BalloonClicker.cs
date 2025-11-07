@@ -22,17 +22,17 @@ public class BalloonClicker : MonoBehaviour
             //1. 말풍선을 비활성화합니다.
             gameObject.SetActive(false);
 
-            //2. 대화 매니저에게 모든 정보를 전달하며 시작을 요청합니다.
+            //2. 대화 매니저에게 모든 정보를 전달하며 시작을 요청
             dialogueManager.StartDialogue(
                 dialogueLines,
                 panelID,
-                OnDialogueFinished, // 대화 종료 시 실행될 함수 (말풍선 복구)
+                OnDialogueFinished, //대화 종료 시 실행될 함수 (말풍선 복구)
                 dialogueType
             );
         }
     }
 
-    // 대화가 끝났을 때 DialogueManager에 의해 호출되어 말풍선을 다시 활성화합니다.
+    // 대화가 끝났을 때 DialogueManager에 의해 호출되어 말풍선을 다시 활성화
     private void OnDialogueFinished()
     {
         gameObject.SetActive(true);

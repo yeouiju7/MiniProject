@@ -43,39 +43,8 @@ public class Player : MonoBehaviour
 
     private int currentCoins = 0;
 
-    [Header("Health & Respawn")]
-    public int maxHealth = 5;       //최대 라이프 
-    private int currentHealth;      //현재 라이프
-    public Vector3 respawnPoint;
 
-    [Header("Health UI")]
-    public Image[] hearts;
 
-    private void UpdateHealthUI()
-    {
-        //hearts 배열에 하트 이미지가 연결되어 있는지 확인
-        if (hearts == null || hearts.Length == 0)
-        {
-            Debug.LogWarning("Health UI hearts array is not set up in the Inspector!");
-            return;
-        }
-
-        //currentHealth 값에 따라 하트 이미지 활성화/비활성화
-        for (int i = 0; i < hearts.Length; i++)
-        {
-   
-            if (i < currentHealth)
-            {
-                // 라이프가 남아있음 -> 풀 하트 이미지로 설정
-                hearts[i].enabled = true; // Image 컴포넌트를 활성화
-            }
-            else
-            {
-                // 라이프가 부족->빈 하트 이미지로 설정
-                hearts[i].enabled = false; // Image 컴포넌트를 비활성화
-            }
-        }
-    }
     private void UpdateCoinUI()
     {
         if (coinDisplay != null)
@@ -109,32 +78,11 @@ public class Player : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         StartCoroutine(SafeSpawnRoutine());
 
-        currentHealth = maxHealth;
-        respawnPoint = transform.position;
+       
 
     }
 
-
-
-    public void DieByFall()
-    {
-      
-        currentHealth -= 1;
-
-        UpdateHealthUI(); 
-
-        if (currentHealth > 0)
-        {
-            
-            transform.position = respawnPoint;
-           
-        }
-        else
-        {
-            Time.timeScale = 0f;
-            SceneManager.LoadScene("Over");
-        }
-    }
+  
 
     IEnumerator SafeSpawnRoutine()
     {
@@ -350,9 +298,13 @@ public class Player : MonoBehaviour
 
         if (other.CompareTag("KillZone"))
         {
-            DieByFall(); 
-        }
+            PlayerHealth playerHealth = GetComponent<PlayerHealth>();
 
+            if (playerHealth != null)
+            {    
+                playerHealth.DieByFall();
+            }
+        }
     }
 
     //콜라이더 트리거에서 나갔을 때
